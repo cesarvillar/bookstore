@@ -1,0 +1,48 @@
+
+# This a multi-line string, that have multipurpose, here a menu
+user_choice = """
+Enter:
+- 'a' to add a new book
+- 'l' to list all books
+- 'r' to mark a book as read
+- 'd' to delete a book
+- 's' to save changes in database
+- 'q' to quit
+
+Your choice: """
+
+from utils.database import add_book, list_book, edit_books, search_books, delete_books, save_changes
+
+
+def menu():
+    user_input = input(user_choice).lower()
+    if user_input == 'q':
+        print('Closing....')
+    while user_input != 'q':
+        if user_input == 'a':
+            print('Your decided adding a new book')
+            add_book()
+        elif user_input == 'l':
+            list_book()
+        elif user_input == 'r':
+            edit_books()
+        elif user_input == 's':
+            search_books()
+        elif user_input == 'd':
+            delete_books()
+        elif user_input == 's':
+            save_changes()
+        elif user_input != 'a' or user_input != 'l' or user_input != 'r' or user_input != 's' or user_input != 'd':
+            print("{} is not valid, try again".format(user_input))
+        user_input = input(user_choice).lower()
+        if user_input == 'q':
+            print('Closing....')
+
+# Functions in the menu definition:
+# def prompt_add_book() ask for book name and author (add)
+# def list_list_books() show all the books in our list (show)
+# def prompt_read_book () as for book name and change it to "read" in our list (edit status)
+# def prompt_delete_book() ask for book name and remove book the list (remove)
+
+
+menu()
