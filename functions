@@ -1,0 +1,102 @@
+"""
+Concerned with storing and retrieving books from a list.
+"""
+
+books = [{'name': 'Freakonomics', 'author': 'Steve Dubner', 'read': True}, {
+    'name': 'Big Foot', 'author': 'Jimmy Henryx', 'read': True},
+         {'name': 'Origins', 'author':'Dawn Bronw', 'read': True}]
+
+user_choice = """
+Enter:
+- 'a' to add a new book
+- 'l' to list all books
+- 'r' to mark a book as read
+- 'd' to delete a book
+- 'q' to quit
+
+Your choice: """
+
+
+# Adding books
+
+def add_book():
+    name = input("Insert the book's name: ")
+    author = input("Who's the author? ")
+    read = input("Read True/False (T/F) ").lower()
+    while type(read) != bool:
+        if read == 'f' or read == 'false':
+            read = False
+            books.append({'name': name, 'author': author, 'read': read})
+        elif read == 't' or read == 'true':
+            read = True
+            books.append({'name': name, 'author': author, 'read': read})
+        else:
+            print("{} is not valid, try again".format(read))
+            read = input("Read True/False (T/F) ").lower()
+
+
+# Showing Books
+def list_book():
+    for x in books:
+        print("{} by {} in current status {}".format(x['name'], x['author'], x['read']))
+
+
+# Searching for books
+
+def search_books():
+    search = input('Insert the name of the book: ').lower()
+    for x in books:
+        if x['name'].lower() == search:
+            print("<<<{}>>> by {} on {}".format(x['name'], x['author'], x['read']))
+            break
+    print("{} was not found in our library".format(search))
+
+
+# Editing read status
+
+def edit_books():
+    search = input('Insert the name of the book: ').lower()
+    matches = []
+    for x in books:
+        if x['name'].lower() == search:
+            matches.append(x['name'])
+            print(f"{x['name']} current reading status {x['read']}")
+            new_read_status = input('Input new status (T/F): ').lower()
+            while type(new_read_status) != bool:
+                if new_read_status == 't' or new_read_status == 'True':
+                    new_read_status = True
+                    print('New status {}'.format(new_read_status))
+                    x['read'] = new_read_status
+                elif new_read_status == 'f' or new_read_status == 'False':
+                    new_read_status = False
+                    print('New status {}'.format(new_read_status))
+                    x['read'] = new_read_status
+                else:
+                    print('Not Valid Input, {}'.format(new_read_status))
+                    new_read_status = input('Insert new status (T/F): ').lower()
+    if len(matches) == 0:
+        print('No record was found under the name {}'.format(search.capitalize()))
+
+
+# Deleting Old books from the bookstore
+def delete_books():
+    search = input("Type the Book tittle to be removed: ").lower()
+    index = 0
+    matches = []
+    for x in books:
+        index += 1
+        if x['name'].lower() == search:
+            confirmation = input('{} will be deleted (Y/N): '.format(search.capitalize())).lower()
+            matches.append(search)
+            if confirmation == 'y' or confirmation == 'yes':
+                del books[index-1]
+                print('{}, deleted'.format(search.capitalize()))
+            elif confirmation == 'n' or confirmation == 'no':\
+                print('Returning to main menu')
+    if len(matches) == 0:
+        print('{} no references is under that title'.format(search.capitalize()))
+
+
+# Saving Changes
+def save_changes():
+    print('Work in progress')
